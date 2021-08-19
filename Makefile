@@ -10,4 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
+INCL = includes
+CFLAGS = -Wall -Wextra -Werror
 
+%.o : 		%.c
+			${CC} -c ${CFLAGS} -I${INCL} $^ -o $@
+
+test_% : 	tests/test_%.o srcs/%.o
+			${CC} ${CFLAGS} -I${INCL} -L${LD_LIBRARY_PATH} -lcriterion -o $@ $^

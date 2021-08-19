@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   test_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/17 15:05:32 by rgilles           #+#    #+#             */
-/*   Updated: 2021/08/17 15:05:34 by rgilles          ###   ########.fr       */
+/*   Created: 2021/08/19 11:26:47 by rgilles           #+#    #+#             */
+/*   Updated: 2021/08/19 11:26:48 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOHPERS_H
-# define SYMBOL value
+#include <philosophers.h>
+#include <criterion/criterion.h>
 
-#include <stdlib.h>
-
-typedef struct	s_philo
+Test(philo, init)
 {
-	
-}				t_philo;
+	t_philo *philo;
 
-t_philo	*philo_create();
-
-void	philo_destroy(t_philo *p);
-
-#endif
+	philo = philo_create();
+	cr_assert_neq(philo, NULL);
+	philo_destroy(philo);
+}

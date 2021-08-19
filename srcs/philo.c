@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/17 15:05:32 by rgilles           #+#    #+#             */
-/*   Updated: 2021/08/17 15:05:34 by rgilles          ###   ########.fr       */
+/*   Created: 2021/08/19 11:25:45 by rgilles           #+#    #+#             */
+/*   Updated: 2021/08/19 11:25:47 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOHPERS_H
-# define SYMBOL value
+#include <philosophers.h>
 
-#include <stdlib.h>
-
-typedef struct	s_philo
+t_philo	*philo_create()
 {
-	
-}				t_philo;
+	return (calloc(1, sizeof(t_philo)));
+}
 
-t_philo	*philo_create();
-
-void	philo_destroy(t_philo *p);
-
-#endif
+void	philo_destroy(t_philo *p)
+{
+	free(p);
+}

@@ -11,10 +11,20 @@
 # **************************************************************************** #
 
 INCL = includes
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread -g -fsanitize=address
 
 %.o : 		%.c
 			${CC} -c ${CFLAGS} -I${INCL} $^ -o $@
 
-test_% : 	tests/test_%.o srcs/%.o
-			${CC} ${CFLAGS} -I${INCL} -L${LD_LIBRARY_PATH} -lcriterion -o $@ $^
+all :		philo
+
+philo :     srcs/main.o srcs/philo_runtime.o srcs/populate_data.o srcs/utils.o
+			${CC} ${CFLAGS} -I${INCL} -o $@ $^
+
+clean :
+			rm -rf **/**.o
+
+fclean :	clean
+			rm -rf philo
+
+re :		fclean all

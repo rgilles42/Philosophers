@@ -14,9 +14,11 @@
 
 void	populate_data(t_data *data, int argc, char **argv, unsigned int i)
 {
-	data->t_die = (unsigned int)ft_atoi(argv[2]) * 1000;
+	data->n_philo = (unsigned int)ft_atoi(argv[1]);
+	data->t_die = (unsigned int)ft_atoi(argv[2]);
 	data->t_eat = (unsigned int)ft_atoi(argv[3]) * 1000;
 	data->t_sleep = (unsigned int)ft_atoi(argv[4]) * 1000;
+	data->last_meal_start = 0;
 	data->has_meals_limit = 0;
 	if (argc == 6)
 	{

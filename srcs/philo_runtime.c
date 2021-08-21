@@ -15,8 +15,13 @@
 static int	has_reached_max_nb_meals(t_data *data, unsigned int i)
 {
 	if (data->has_meals_limit)
+	{
 		if (i == data->n_meals)
+		{
+			data->has_meals_limit = 42;
 			return (1);
+		}
+	}
 	return (0);
 }
 
@@ -33,6 +38,7 @@ void	*philo_runtime(void *datavoid)
 		pthread_mutex_lock(&data->next->fork);
 		print_operation("has taken a fork", data->id, *(data->init_time));
 		data->state = IS_EATING;
+		data->last_meal_start = get_time(*(data->init_time));
 		print_operation("is eating", data->id, *(data->init_time));
 		usleep(data->t_eat);
 		pthread_mutex_unlock(&data->fork);

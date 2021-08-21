@@ -49,13 +49,16 @@ int	ft_atoi(const char *nptr)
 	return (oob_error(sign));
 }
 
-void	print_operation(char *str, int id, struct timeval init_time)
+unsigned int	get_time(struct timeval init_time)
 {
 	struct timeval	curr_time;
-	int				ms;
 
 	gettimeofday(&curr_time, NULL);
-	ms = (curr_time.tv_sec - init_time.tv_sec) * 1000
-		+ (curr_time.tv_usec - init_time.tv_usec) / 1000;
-	printf("%d ms : Philosopher %d %s\n", ms, id + 1, str);
+	return ((curr_time.tv_sec - init_time.tv_sec) * 1000
+		+ (curr_time.tv_usec - init_time.tv_usec) / 1000);
+}
+
+void	print_operation(char *str, int id, struct timeval init_time)
+{
+	printf("%u ms : Philosopher %d %s\n", get_time(init_time), id + 1, str);
 }

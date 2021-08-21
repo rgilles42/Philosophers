@@ -11,14 +11,15 @@
 # **************************************************************************** #
 
 INCL = includes
-CFLAGS = -Wall -Wextra -Werror -pthread -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 
 %.o : 		%.c
 			${CC} -c ${CFLAGS} -I${INCL} $^ -o $@
 
 all :		philo
 
-philo :     srcs/main.o srcs/philo_runtime.o srcs/populate_data.o srcs/utils.o
+philo :     srcs/main.o srcs/philo_runtime.o srcs/populate_data.o srcs/utils.o \
+			srcs/end.o srcs/watcher_runtime.o
 			${CC} ${CFLAGS} -I${INCL} -o $@ $^
 
 clean :

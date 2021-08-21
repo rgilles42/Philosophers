@@ -26,6 +26,7 @@ enum {IS_EATING, IS_SLEEPING, IS_THINKING, IS_DEAD};
 typedef struct s_data
 {
 	struct timeval	*init_time;
+	unsigned int	n_philo;
 	int				has_meals_limit;
 	unsigned int	n_meals;
 	unsigned int	t_eat;
@@ -33,14 +34,18 @@ typedef struct s_data
 	unsigned int	t_die;
 	unsigned int	id;
 	int				state;
+	unsigned int	last_meal_start;
 	pthread_mutex_t	fork;
+	pthread_mutex_t	*talking_pillow;
 	struct s_data	*next;
 
 }				t_data;
 
-void	populate_data(t_data *data, int argc, char **argv, unsigned int i);
-void	*philo_runtime(void *datavoid);
-void	print_operation(char *str, int id, struct timeval init_epoch);
-int		ft_atoi(const char *nptr);
-
+void			populate_data(t_data *data, int ac, char **av, unsigned int i);
+void			*philo_runtime(void *datavoid);
+void			*watcher_runtime(void *datavoid);
+unsigned int	get_time(struct timeval init_time);
+void			print_operation(char *str, int id, struct timeval init_epoch);
+int				ft_atoi(const char *nptr);
+void			philo_end(pthread_t *philothread, t_data *data);
 #endif

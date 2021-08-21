@@ -57,5 +57,5 @@ void	print_operation(char *str, int id, struct timeval init_time)
 	gettimeofday(&curr_time, NULL);
 	ms = (curr_time.tv_sec - init_time.tv_sec) * 1000
 		+ (curr_time.tv_usec - init_time.tv_usec) / 1000;
-	printf("%d %d %s\n", ms, id + 1, str);
+	printf("%d ms : Philosopher %d %s\n", ms, id + 1, str);
 }

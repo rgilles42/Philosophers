@@ -22,15 +22,14 @@ static int	has_reached_max_nb_meals(t_data *data, unsigned int i)
 
 void	*philo_runtime(void *datavoid)
 {
-	t_data *data = (t_data*)datavoid;
-	unsigned int i;
+	t_data			*data;
+	unsigned int	i;
 
 	i = 0;
+	data = (t_data *)datavoid;
 	while (++i)
 	{
-//printf("Locking mutex of philo %u\n", data->id);
 		pthread_mutex_lock(&data->fork);
-//printf("Locking mutex of philo %u\n", data->next->id);
 		pthread_mutex_lock(&data->next->fork);
 		print_operation("has taken a fork", data->id, *(data->init_time));
 		data->state = IS_EATING;
@@ -39,7 +38,7 @@ void	*philo_runtime(void *datavoid)
 		pthread_mutex_unlock(&data->fork);
 		pthread_mutex_unlock(&data->next->fork);
 		if (has_reached_max_nb_meals(data, i))
-			break;
+			break ;
 		data->state = IS_SLEEPING;
 		print_operation("is sleeping", data->id, *(data->init_time));
 		usleep(data->t_sleep);

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOHPERS_H
-# define SYMBOL value
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,7 +23,7 @@
 
 enum {IS_EATING, IS_SLEEPING, IS_THINKING, IS_DEAD};
 
-typedef struct	s_data
+typedef struct s_data
 {
 	struct timeval	*init_time;
 	int				has_meals_limit;

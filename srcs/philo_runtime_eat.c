@@ -14,10 +14,10 @@
 
 static void	philo_eat_even(t_data *data)
 {
-	pthread_mutex_lock(&data->fork);
+	pthread_mutex_lock(&data->next->fork);
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
-	pthread_mutex_lock(&data->next->fork);
+	pthread_mutex_lock(&data->fork);
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
 	data->state = is_eating;
@@ -31,10 +31,10 @@ static void	philo_eat_even(t_data *data)
 
 static void	philo_eat_odd(t_data *data)
 {
-	pthread_mutex_lock(&data->next->fork);
+	pthread_mutex_lock(&data->fork);
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
-	pthread_mutex_lock(&data->fork);
+	pthread_mutex_lock(&data->next->fork);
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
 	data->state = is_eating;

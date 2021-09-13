@@ -52,8 +52,11 @@ int	main(int argc, char **argv)
 		return (-1);
 	i = -1;
 	gettimeofday(&start_time, NULL);
-	while (++i < data->n_philo)
-		pthread_create(&philothread[i], NULL, philo_runtime, &data[i]);
+	while (++i <= data->n_philo / 2 && 2 * i < data->n_philo)
+		pthread_create(&philothread[i], NULL, philo_runtime, &data[i * 2]);
+	i = -1;
+	while (++i < data->n_philo / 2)
+		pthread_create(&philothread[i], NULL, philo_runtime, &data[i * 2 + 1]);
 	pthread_create(&philothread[data->n_philo], NULL, watcher_runtime, data);
 	pthread_detach(philothread[data->n_philo]);
 	while (i-- > 0)

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/17 15:05:32 by rgilles           #+#    #+#             */
-/*   Updated: 2021/08/17 15:05:34 by rgilles          ###   ########.fr       */
+/*   Created: 2021/09/06 22:05:06 by rgilles           #+#    #+#             */
+/*   Updated: 2021/09/13 16:37:20 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <errno.h>
 # include <limits.h>
 
-enum {IS_EATING, IS_SLEEPING, IS_THINKING, IS_DEAD};
+enum {is_eating, is_sleeping, is_thinking, is_dead};
 
 typedef struct s_data
 {
@@ -34,18 +34,20 @@ typedef struct s_data
 	unsigned int	t_die;
 	unsigned int	id;
 	int				state;
+	int				*killswitch;
 	unsigned int	last_meal_start;
 	pthread_mutex_t	fork;
-	pthread_mutex_t	*talking_pillow;
 	struct s_data	*next;
 
 }				t_data;
 
+int				sanitize_input(int argc, char **argv);
 void			populate_data(t_data *data, int ac, char **av, unsigned int i);
 void			*philo_runtime(void *datavoid);
+void			philo_eat(t_data *data);
 void			*watcher_runtime(void *datavoid);
 unsigned int	get_time(struct timeval init_time);
-void			print_operation(char *str, int id, struct timeval init_epoch);
+void			print_operation(char *s, int id, struct timeval init_t, int ks);
 int				ft_atoi(const char *nptr);
 void			philo_end(pthread_t *philothread, t_data *data);
 #endif

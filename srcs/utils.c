@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 19:30:35 by rgilles           #+#    #+#             */
-/*   Updated: 2021/08/20 19:30:37 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/13 15:47:01 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ unsigned int	get_time(struct timeval init_time)
 		+ (curr_time.tv_usec - init_time.tv_usec) / 1000);
 }
 
-void	print_operation(char *str, int id, struct timeval init_time)
+void	print_operation(char *s, int id, struct timeval init_t, int killswitch)
 {
-	printf("%u ms : Philosopher %d %s\n", get_time(init_time), id + 1, str);
+	if (!killswitch)
+		printf("%u ms %d %s\n", get_time(init_t), id + 1, s);
 }

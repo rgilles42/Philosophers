@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 15:08:30 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/13 16:09:17 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/15 12:59:48 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 static int	tragic_loss(t_data *d, int n_philo)
 {
 	int	i;
+	int	starvation_time;
 
 	i = -1;
 	while (++i < n_philo)
 	{
-		if (get_time(*((&d[i])->init_time)) - (&d[i])->last_meal_start
-			>= (&d[i])->t_die)
+		starvation_time = get_time(*(d[i].init_time)) - d[i].last_meal_start;
+		if (starvation_time >= (int)d[i].t_die)
 		{
 			(&d[i])->state = is_dead;
 			*(d[i].killswitch) = 1;

@@ -17,7 +17,14 @@ static void	philo_eat_even(t_data *data)
 	pthread_mutex_lock(&data->next->fork);
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
-	pthread_mutex_lock(&data->fork);
+	if (data->n_philo != 1)
+		pthread_mutex_lock(&data->fork);
+	else
+	{
+		while (!*data->killswitch)
+			;
+		return;
+	}
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
 	data->state = is_eating;

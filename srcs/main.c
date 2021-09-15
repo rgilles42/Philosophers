@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:23:42 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 11:34:21 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:17:34 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main(int argc, char **argv)
 		pthread_create(&philothread[i], NULL, philo_runtime, &data[i * 2 + 1]);
 	pthread_create(&philothread[data->n_philo], NULL, watcher_runtime, data);
 	pthread_detach(philothread[data->n_philo]);
-	while (i-- > 0)
+	i = -1;
+	while (++i < data->n_philo)
 		pthread_join(philothread[i], NULL);
 	philo_end(philothread, data);
 }

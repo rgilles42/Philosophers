@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 19:34:49 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 22:54:14 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:00:28 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	populate_data(t_data *data, int argc, char **argv, unsigned int i)
 	if (argc == 6)
 	{
 		data->has_meals_limit = 1;
-		data->n_meals = (unsigned int)ft_atoi(argv[5]);
+		data->n_meals = ft_atoi(argv[5]);
 	}
 	data->id = i;
 	data->state = is_thinking;

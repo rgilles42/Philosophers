@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 22:05:06 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 11:34:19 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:47:16 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_data
 	struct timeval	*init_time;
 	unsigned int	n_philo;
 	int				has_meals_limit;
-	unsigned int	n_meals;
+	int				n_meals;
 	unsigned int	t_eat;
 	unsigned int	t_sleep;
 	unsigned int	t_die;
@@ -45,7 +45,7 @@ typedef struct s_data
 int				sanitize_input(int argc, char **argv);
 void			populate_data(t_data *data, int ac, char **av, unsigned int i);
 void			*philo_runtime(void *datavoid);
-void			philo_eat(t_data *data);
+void			philo_eat(t_data *data, int i);
 void			*watcher_runtime(void *datavoid);
 unsigned int	get_time(struct timeval init_time);
 void			print_operation(char *s, int id, struct timeval init_t, int ks);

@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:23:42 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 23:15:44 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/16 13:14:10 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	build_data(int argc, char **argv, t_data *data, struct timeval *st_time)
 		return (0);
 	*killswitch = 0;
 	n_philo = ft_atoi(argv[1]);
+	gettimeofday(st_time, NULL);
 	i = -1;
 	while (++i < n_philo)
 	{
@@ -51,18 +52,11 @@ int	main(int argc, char **argv)
 	if (!build_data(argc, argv, data, &start_time) || !data || !philothread)
 		return (-1);
 	i = -1;
-	gettimeofday(&start_time, NULL);
 	while (++i <= data->n_philo / 2 && 2 * i < data->n_philo)
-	{
-		printf("Starting philo %u\n", i * 2);
 		pthread_create(&philothread[i], NULL, philo_runtime, &data[i * 2]);
-	}
 	i = -1;
 	while (++i < data->n_philo / 2)
-	{
-		printf("Starting philo %u\n", i * 2 + 1);
 		pthread_create(&philothread[i], NULL, philo_runtime, &data[i * 2 + 1]);
-	}
 	pthread_create(&philothread[data->n_philo], NULL, watcher_runtime, data);
 	pthread_detach(philothread[data->n_philo]);
 	i = -1;

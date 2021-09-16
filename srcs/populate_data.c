@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 19:34:49 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/13 15:27:59 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:54:14 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	populate_data(t_data *data, int argc, char **argv, unsigned int i)
 	data->id = i;
 	data->state = is_thinking;
 	pthread_mutex_init(&(data->fork), NULL);
+	pthread_mutex_init(&(data->meal_history_access), NULL);
 }

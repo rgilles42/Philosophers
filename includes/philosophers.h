@@ -35,8 +35,9 @@ typedef struct s_data
 	unsigned int	id;
 	int				state;
 	int				*killswitch;
-	unsigned int	last_meal_start;
 	pthread_mutex_t	fork;
+	pthread_mutex_t	meal_history_access;
+	unsigned int	last_meal_start;
 	struct s_data	*next;
 
 }				t_data;

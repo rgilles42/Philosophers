@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:08:17 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 11:13:13 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:56:35 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static void	philo_eat_even(t_data *data)
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
 	data->state = is_eating;
+	pthread_mutex_lock(&data->meal_history_access);
 	data->last_meal_start = get_time(*(data->init_time));
+	pthread_mutex_unlock(&data->meal_history_access);
 	print_operation("is eating", data->id, *(data->init_time),
 		*data->killswitch);
 	usleep(data->t_eat);
@@ -45,7 +47,9 @@ static void	philo_eat_odd(t_data *data)
 	print_operation("has taken a fork", data->id, *(data->init_time),
 		*data->killswitch);
 	data->state = is_eating;
+	pthread_mutex_lock(&data->meal_history_access);
 	data->last_meal_start = get_time(*(data->init_time));
+	pthread_mutex_unlock(&data->meal_history_access);
 	print_operation("is eating", data->id, *(data->init_time),
 		*data->killswitch);
 	usleep(data->t_eat);

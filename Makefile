@@ -6,15 +6,16 @@
 #    By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/17 15:06:05 by rgilles           #+#    #+#              #
-#    Updated: 2021/09/15 16:08:16 by rgilles          ###   ########.fr        #
+#    Updated: 2021/09/15 23:02:55 by rgilles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
 INCL = includes
-CFLAGS = -Wall -Wextra -Werror -pthread -g #-g3 -fsanitize=thread
 
-%.o : 		%.c
-			${CC} -c ${CFLAGS} -I${INCL} $^ -o $@
+%.o : 		%.c ${INCL}/philosophers.h
+			${CC} -c ${CFLAGS} -I${INCL} $< -o $@
 
 all :		philo
 

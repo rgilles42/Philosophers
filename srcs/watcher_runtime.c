@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 15:08:30 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 12:59:48 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:56:27 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	tragic_loss(t_data *d, int n_philo)
 	i = -1;
 	while (++i < n_philo)
 	{
+		pthread_mutex_lock(&d[i].meal_history_access);
 		starvation_time = get_time(*(d[i].init_time)) - d[i].last_meal_start;
+		pthread_mutex_unlock(&d[i].meal_history_access);
 		if (starvation_time >= (int)d[i].t_die)
 		{
 			(&d[i])->state = is_dead;

@@ -24,7 +24,6 @@ int	build_data(int argc, char **argv, t_data *data, struct timeval *st_time)
 	if (!killswitch || !kswmutex)
 		return (0);
 	*killswitch = 0;
-	pthread_mutex_init(kswmutex, NULL);
 	n_philo = ft_atoi(argv[1]);
 	gettimeofday(st_time, NULL);
 	i = -1;
@@ -55,6 +54,7 @@ int	main(int argc, char **argv)
 	data = malloc(ft_atoi(argv[1]) * sizeof(t_data));
 	if (!build_data(argc, argv, data, &start_time) || !data || !ths)
 		return (-1);
+	pthread_mutex_init(data->killswitch_mutex, NULL);
 	i = -1;
 	while (++i <= data->n_philo / 2 && 2 * i < data->n_philo)
 		pthread_create(&ths[i * 2], NULL, philo_runtime, &data[i * 2]);

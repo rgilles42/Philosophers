@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 19:30:35 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/20 16:16:23 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/20 17:54:43 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	print_operation(char *s, t_data *data)
 	pthread_mutex_lock(data->killswitch_mutex);
 	killswitch = *data->killswitch;
 	pthread_mutex_unlock(data->killswitch_mutex);
-	if (!killswitch)
+	if (!killswitch || s[0] == 'd')
 		printf("%u ms %d %s\n", get_time(*data->init_time), data->id + 1, s);
 }

@@ -30,10 +30,10 @@ static int	tragic_loss(t_data *d)
 		pthread_mutex_unlock(&d[i].n_meals_mutex);
 		if (!philo_has_ended && starvation_time >= (int)d[i].t_die)
 		{
-			print_operation("died", &d[i]);
 			pthread_mutex_lock(d[0].killswitch_mutex);
 			*(d[i].killswitch) = 1;
 			pthread_mutex_unlock(d[0].killswitch_mutex);
+			print_operation("died", &d[i]);
 			return (1);
 		}
 	}
@@ -45,6 +45,8 @@ static int	has_ended(t_data *d)
 	unsigned int	i;
 
 	i = -1;
+	if (!d->has_meals_limit)
+		return (0);
 	while (++i < d->n_philo)
 	{
 		pthread_mutex_lock(&d[i].n_meals_mutex);

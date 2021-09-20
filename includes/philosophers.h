@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 22:05:06 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/16 16:47:16 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/20 17:08:50 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_data
 	int				*killswitch;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	meal_history_access;
+	pthread_mutex_t	*killswitch_mutex;
+	pthread_mutex_t	n_meals_mutex;
 	unsigned int	last_meal_start;
 	struct s_data	*next;
 
@@ -45,10 +47,11 @@ typedef struct s_data
 int				sanitize_input(int argc, char **argv);
 void			populate_data(t_data *data, int ac, char **av, unsigned int i);
 void			*philo_runtime(void *datavoid);
-void			philo_eat(t_data *data, int i);
+int				is_killswitch_engaged(t_data *data);
+void			philo_eat(t_data *data);
 void			*watcher_runtime(void *datavoid);
 unsigned int	get_time(struct timeval init_time);
-void			print_operation(char *s, int id, struct timeval init_t, int ks);
+void			print_operation(char *s, t_data *data);
 int				ft_atoi(const char *nptr);
 void			philo_end(pthread_t *philothread, t_data *data);
 #endif

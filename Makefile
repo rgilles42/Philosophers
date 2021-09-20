@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
 INCL = includes
 
 %.o : 		%.c ${INCL}/philosophers.h

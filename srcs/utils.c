@@ -6,7 +6,7 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 19:30:35 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/15 16:16:32 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/20 16:16:23 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ unsigned int	get_time(struct timeval init_time)
 		+ (curr_time.tv_usec - init_time.tv_usec) / 1000);
 }
 
-void	print_operation(char *s, int id, struct timeval init_t, int killswitch)
+void	print_operation(char *s, t_data *data)
 {
+	int	killswitch;
+
+	pthread_mutex_lock(data->killswitch_mutex);
+	killswitch = *data->killswitch;
+	pthread_mutex_unlock(data->killswitch_mutex);
 	if (!killswitch)
-		printf("%u ms %d %s\n", get_time(init_t), id + 1, s);
+		printf("%u ms %d %s\n", get_time(*data->init_time), data->id + 1, s);
 }

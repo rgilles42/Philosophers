@@ -34,12 +34,10 @@ static void	philo_sleep(t_data *data)
 	usleep(data->t_sleep);
 }
 
-static void	philo_think(t_data *data, int *is_first_turn)
+static void	philo_think(t_data *data)
 {
 	data->state = is_thinking;
-	if (!*is_first_turn)
-		print_operation("is thinking", data);
-	*is_first_turn = 0;
+	print_operation("is thinking", data);
 }
 
 int	is_killswitch_engaged(t_data *data)
@@ -65,16 +63,18 @@ void	*philo_runtime(void *datavoid)
 	data = (t_data *)datavoid;
 	while (++i != -1)
 	{
-		philo_think(data, &is_first_turn);
-		if (is_killswitch_engaged(data))
-			break ;
-		philo_eat(data);
+		if (!(is_first_turn && data->id % 2 == 1))
+			philo_eat(data);
+		is_first_turn = 0;
 		data->state = is_sleeping;
 		if (has_reached_max_nb_meals(data, i))
 			break ;
 		if (is_killswitch_engaged(data))
 			break ;
 		philo_sleep(data);
+		if (is_killswitch_engaged(data))
+			break ;
+		philo_think(data);
 		if (is_killswitch_engaged(data))
 			break ;
 	}

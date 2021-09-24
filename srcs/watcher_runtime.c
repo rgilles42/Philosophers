@@ -28,7 +28,7 @@ static int	tragic_loss(t_data *d)
 		pthread_mutex_lock(&d[i].n_meals_mutex);
 		philo_has_ended = d[i].n_meals == -1;
 		pthread_mutex_unlock(&d[i].n_meals_mutex);
-		if (!philo_has_ended && starvation_time >= (int)d[i].t_die)
+		if (!philo_has_ended && starvation_time > (int)d[i].t_die)
 		{
 			pthread_mutex_lock(d[0].killswitch_mutex);
 			*(d[i].killswitch) = 1;

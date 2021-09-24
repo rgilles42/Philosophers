@@ -27,7 +27,6 @@ void	populate_data(t_data *data, int argc, char **argv, unsigned int i)
 	}
 	data->id = i;
 	data->state = is_thinking;
-	//data->t_sleep += 500;
 	pthread_mutex_init(&data->fork, NULL);
 	pthread_mutex_init(&data->meal_history_access, NULL);
 	pthread_mutex_init(&data->n_meals_mutex, NULL);

@@ -17,7 +17,7 @@ static int	has_reached_max_nb_meals(t_data *data, int i)
 	if (data->has_meals_limit)
 	{
 		pthread_mutex_lock(&data->n_meals_mutex);
-		if (i == data->n_meals - 1)
+		if ((data->id % 2 == 0 && i == data->n_meals - 1) || (data->id % 2 == 1 && i == data->n_meals))
 		{
 			data->n_meals = -1;
 			pthread_mutex_unlock(&data->n_meals_mutex);
@@ -55,17 +55,14 @@ int	is_killswitch_engaged(t_data *data)
 void	*philo_runtime(void *datavoid)
 {
 	t_data			*data;
-	int				is_first_turn;
 	int				i;
 
 	i = -1;
-	is_first_turn = 1;
 	data = (t_data *)datavoid;
 	while (++i != -1)
 	{
-		if (!(is_first_turn && data->id % 2 == 1))
+		if (!(data->id % 2 == 1 && i == 0))
 			philo_eat(data);
-		is_first_turn = 0;
 		data->state = is_sleeping;
 		if (has_reached_max_nb_meals(data, i))
 			break ;

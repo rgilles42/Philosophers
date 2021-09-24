@@ -54,7 +54,7 @@ static void	philo_eat_inverted(t_data *data)
 
 void	philo_eat(t_data *data)
 {
-	if (data->id == 0)
+	if (data->id == data->n_philo - 1)
 		philo_eat_inverted(data);
 	else
 		philo_eat_even(data);

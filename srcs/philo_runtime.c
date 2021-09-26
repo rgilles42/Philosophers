@@ -6,11 +6,23 @@
 /*   By: rgilles <rgilles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 11:25:45 by rgilles           #+#    #+#             */
-/*   Updated: 2021/09/26 13:55:41 by rgilles          ###   ########.fr       */
+/*   Updated: 2021/09/26 14:40:31 by rgilles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
+
+int	is_killswitch_engaged(t_data *data)
+{
+	pthread_mutex_lock(data->killswitch_mutex);
+	if (*data->killswitch)
+	{
+		pthread_mutex_unlock(data->killswitch_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(data->killswitch_mutex);
+	return (0);
+}
 
 static int	has_reached_max_nb_meals(t_data *data, int i)
 {
@@ -28,28 +40,34 @@ static int	has_reached_max_nb_meals(t_data *data, int i)
 	return (0);
 }
 
-static void	philo_sleep(t_data *data)
-{
-	print_operation("is sleeping", data);
-	usleep(data->t_sleep);
-}
-
 static void	philo_think(t_data *data)
 {
 	data->state = is_thinking;
 	print_operation("is thinking", data);
 }
 
-int	is_killswitch_engaged(t_data *data)
+static void	philo_eat(t_data *data)
 {
-	pthread_mutex_lock(data->killswitch_mutex);
-	if (*data->killswitch)
+	pthread_mutex_lock(&data->fork);
+	print_operation("has taken a fork", data);
+	if (data->n_philo != 1)
+		pthread_mutex_lock(&data->next->fork);
+	else
 	{
-		pthread_mutex_unlock(data->killswitch_mutex);
-		return (1);
+		pthread_mutex_unlock(&data->fork);
+		while (!is_killswitch_engaged(data))
+			;
+		return ;
 	}
-	pthread_mutex_unlock(data->killswitch_mutex);
-	return (0);
+	print_operation("has taken a fork", data);
+	data->state = is_eating;
+	pthread_mutex_lock(&data->meal_history_access);
+	data->last_meal_start = get_time(*(data->init_time));
+	pthread_mutex_unlock(&data->meal_history_access);
+	print_operation("is eating", data);
+	usleep(data->t_eat);
+	pthread_mutex_unlock(&data->next->fork);
+	pthread_mutex_unlock(&data->fork);
 }
 
 void	*philo_runtime(void *datavoid)
@@ -73,7 +91,8 @@ void	*philo_runtime(void *datavoid)
 		if (is_killswitch_engaged(data))
 			break ;
 		data->state = is_sleeping;
-		philo_sleep(data);
+		print_operation("is sleeping", data);
+		usleep(data->t_sleep);
 		if (is_killswitch_engaged(data))
 			break ;
 	}

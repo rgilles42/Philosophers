@@ -48,7 +48,6 @@ int				sanitize_input(int argc, char **argv);
 void			populate_data(t_data *data, int ac, char **av, unsigned int i);
 void			*philo_runtime(void *datavoid);
 int				is_killswitch_engaged(t_data *data);
-void			philo_eat(t_data *data);
 void			*watcher_runtime(void *datavoid);
 unsigned int	get_time(struct timeval init_time);
 void			print_operation(char *s, t_data *data);

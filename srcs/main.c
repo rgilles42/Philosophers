@@ -56,8 +56,12 @@ int	main(int argc, char **argv)
 		return (-1);
 	pthread_mutex_init(data->killswitch_mutex, NULL);
 	i = -1;
-	while (++i < data->n_philo)
-		pthread_create(&ths[i], NULL, philo_runtime, &data[i]);
+	while (++i <= data->n_philo / 2 && 2 * i < data->n_philo)
+		pthread_create(&ths[i * 2], NULL, philo_runtime, &data[i * 2]);
+	i = -1;
+	usleep(data[0].t_sleep);
+	while (++i < data->n_philo / 2)
+		pthread_create(&ths[i * 2 + 1], NULL, philo_runtime, &data[i * 2 + 1]);
 	pthread_create(&ths[data->n_philo], NULL, watcher_runtime, data);
 	i = -1;
 	while (++i < data->n_philo)

@@ -65,7 +65,7 @@ void	*watcher_runtime(void *datavoid)
 	t_data			*data;
 
 	data = (t_data *)datavoid;
-	while (!has_ended(data) && !tragic_loss(data))
-		;
+	while (!tragic_loss(data) && !has_ended(data))
+		usleep(1000);
 	return (NULL);
 }

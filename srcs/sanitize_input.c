@@ -33,7 +33,7 @@ int	sanitize_input(int argc, char **argv)
 		printf("%s: expected number of arguments is 4 or 5\n", argv[0]);
 		return (0);
 	}
-	if (!(is_number(argv[1]) && ft_atoi(argv[1]) > 0 && !errno))
+	if (!(is_number(argv[1]) && ft_atoi(argv[1]) > 0 && errno != ERANGE))
 	{
 		printf("%s: invalid argument 1: \"%s\" : argument should be a %s",
 			argv[0], argv[1], "non-nil, strictly positive integer\n");
@@ -41,7 +41,7 @@ int	sanitize_input(int argc, char **argv)
 	}
 	while (++i < argc)
 	{
-		if (!(is_number(argv[i]) && ft_atoi(argv[i]) >= 0 && !errno))
+		if (!(is_number(argv[i]) && ft_atoi(argv[i]) >= 0 && errno != ERANGE))
 		{
 			printf("%s: invalid argument %d: \"%s\" : argument should be a %s",
 				argv[0], i, argv[i], "positive integer\n");
